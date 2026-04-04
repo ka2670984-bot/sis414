@@ -1,9 +1,6 @@
 package com.sis414.tarea;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
@@ -44,11 +41,19 @@ public class movie {
         String texto = "";
         for(int i = 0; i < movies.size(); i++) {
             texto = texto + "Nombre: " + movies.get(i).nombre + "\n";
-            texto = texto + "Autor: " + movies.get(i).prota + "\n";
+            texto = texto + "Prota: " + movies.get(i).prota + "\n";
             texto = texto + "Duracion: " + movies.get(i).duracion + "\n";
             texto = texto + "\n";
         }
         return texto;
+    }
+
+    @PostMapping
+    public String agregarPelicula(@RequestParam String nombre,
+                                  @RequestParam String prota,
+                                  @RequestParam String duracion) {
+        movies.add(new Movie(nombre, prota, duracion));
+        return "Pelicula agregada: " + nombre;
     }
 
     @GetMapping("/buscar")
@@ -57,7 +62,7 @@ public class movie {
             if(movies.get(i).nombre.equals(nombre)) {
                 return "encontre la pelicula!: \n"
                         + "Nombre: "   + movies.get(i).nombre + "\n"
-                        + "Autor: "    + movies.get(i).prota + "\n"
+                        + "Prota: "    + movies.get(i).prota + "\n"
                         + "Duracion: " + movies.get(i).duracion + "\n";
             }
         }
