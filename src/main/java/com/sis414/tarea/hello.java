@@ -1,10 +1,6 @@
 package com.sis414.tarea;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
@@ -21,9 +17,23 @@ public class hello {
         }
         return text;
     }
-    @PostMapping("/hello")
-    public String Posthello(@RequestBody String variable) {
+
+    @PostMapping
+    public String PostHello(@RequestBody String variable)
+    {
         list.add(variable);
-        return variable;
+        return  variable;
+    }
+
+    @DeleteMapping("/{id}")
+    public String DeleteHello(@PathVariable long id)
+    {
+        return id+"";
+    }
+
+    @PutMapping("/{id}")
+    public String PutHello(@RequestBody String variable, @PathVariable long id)
+    {
+        return "";
     }
 }
